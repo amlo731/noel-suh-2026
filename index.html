@@ -44,8 +44,8 @@ ul.r{text-align:left;font-size:.92rem;color:var(--mu);padding-left:20px;margin:8
 <h1>🧘 Calendrier de l’avent<br>Zen Attitude 59</h1>
 <ul class="r">
 <li>Une seule case s’ouvre par jour : celle du jour. Une case manquée reste fermée.</li>
-<li>Tapez votre réponse : 1 point par bonne réponse.</li>
-<li>Les 4 cases cadeaux valent -5 € chacune : les 4 ouvertes = -20 € sur votre prochain massage.</li>
+<li>Tapez la réponse de votre choix : le jeu ne la corrige pas. Madame Suh jugera vos réponses (1 point par bonne réponse) quand vous lui enverrez votre capture d’écran ou votre récapitulatif à la fin du jeu.</li>
+<li>Des cases cadeaux avec une promo se cachent dans le calendrier : à vous de les trouver !</li>
 <li>La case 25 s’ouvre seulement si vous avez ouvert toutes les cases précédentes : jackpot -50 % !</li>
 <li>Les meilleurs scores gagnent un cadeau.</li>
 </ul>
@@ -61,25 +61,24 @@ ul.r{text-align:left;font-size:.92rem;color:var(--mu);padding-left:20px;margin:8
 var START="2026-12-01";                  // date de la case 1
 var MAIL="REMPLACER@zenattitude59.com";  // adresse qui reçoit les récapitulatifs
 var DEMO_CODE="zen-test";                // test : ouvrir la page avec ?demo=zen-test
-var ORDER=[7,19,3,12,22,1,16,9,24,14,5,20,10,25,2,17,21,8,13,4,23,15,11,18,6];
+var SEQ=[19, 9, 12, 3, 20, 7, 11, 5, 18, 16, 10, 4, 22, 13, 2, 23, 14, 1, 8, 17, 24, 6, 21, 15, 25]; // contenu de chaque jour (mélangé)
+var ORDER=[11, 15, 17, 21, 23, 10, 1, 7, 6, 4, 2, 12, 5, 8, 9, 16, 24, 19, 3, 22, 18, 13, 14, 25, 20]; // place des cases dans la grille
 var PIC={"1": "photo-1.jpg", "2": "photo-2.jpg", "3": "photo-3.jpg", "4": "photo-4.jpg", "5": "photo-5.jpg", "6": "photo-6.jpg", "7": "photo-7.jpg", "8": "photo-8.jpg", "9": "photo-9.jpg", "17": "photo-17.jpg", "18": "photo-18.jpg", "19": "photo-19.jpg", "20": "photo-20.jpg", "21": "photo-21.jpg", "22": "photo-22.jpg", "23": "photo-23.jpg"};
 var MQ="Lorsqu’on voit sa posture, à quoi pensez-vous ?";
-var MA={1:"Il remercie la vie",2:"Je prie pour obtenir quelque chose",3:"Libère-moi de mes chaînes",4:"Avant tout, réfléchis à tes pensées et à tes actes avant d’agir",5:"Apprends-moi ce que je dois faire",6:"Soutiens-moi dans mes difficultés, je me repose sur tes actes"};
-var MK={1:["merci","remerci","gratitude"],2:["prie","priere","aide","demande"],3:["libe","chaine"],4:["reflechi","reflexion","pens"],5:["appren","enseign"],6:["soutien","repos","difficult","epaule"]};
-var Q={ // n:[emoji, question, réponse attendue, mots-clés acceptés]
-7:["🥠","Que représente ce petit biscuit ?","Le petit biscuit de sagesse de Mme Suh",["sagesse"]],
-8:["🥠","À quel moment Mme Suh vous l’offre-t-elle ?","À chaque fin de séance",["fin","apres","seance"]],
-9:["🥠","D’où vient sa fabrication ?","100 % française",["franc"]],
-14:["🎪","Quel est le but de la présence de Zen Attitude 59 dans les salons ?","Me faire connaître : acte de présence dans le Cambrésis",["connai","presence","cambresis","visib"]],
-15:["🎪","Quel est le but de la présence dans les salons ?","Faire connaître ma formation",["formation","former"]],
-16:["🎪","Quel est le but de la présence dans les salons ?","L’interprétation des grains de beauté, tatouages et piercings",["grain","beaute","tatou","piercing","interpret"]],
-17:["🔑","Quelle petite attention Zen Attitude 59 offre-t-elle à ses clients le jour de leur anniversaire ?","Un porte-clé porte-chance",["porte","cle","chance"]],
-18:["🔑","Quel est le déclencheur pour avoir la chance ?","La superstition et la croyance",["superstition","croyance","croire","foi"]],
-19:["🏺","Que représente la gourde ?","La gourde magique : on y introduit un petit rituel de mantra pour attirer la chance choisie",["mantra","rituel","chance","magique"]],
-20:["🪙","Que représentent les pièces ?","Attirer les avantages du passé",["passe"]],
-21:["🐗","Que représente le petit animal qui porte une pièce ?","Attirer les avantages du futur",["futur","avenir"]],
-22:["🗝️","Que représente la clé ?","Donner l’accord de l’acte pour l’obtenir",["accord","acte","obtenir","autoris","permission"]],
-23:["🐉","Que représente le totem ?","L’animal spirituel chinois : l’horoscope",["animal","horoscope","spirituel","chinois","totem"]]
+var Q={ // n:[emoji, question]
+7:["🥠","Que représente ce petit biscuit ?"],
+8:["🥠","À quel moment Mme Suh vous l’offre-t-elle ?"],
+9:["🥠","D’où vient sa fabrication ?"],
+14:["🎪","Quel est le but de la présence de Zen Attitude 59 dans les salons ?"],
+15:["🎪","Quel est le but de la présence dans les salons ?"],
+16:["🎪","Quel est le but de la présence dans les salons ?"],
+17:["🔑","Quelle petite attention Zen Attitude 59 offre-t-elle à ses clients le jour de leur anniversaire ?"],
+18:["🔑","Quel est le déclencheur pour avoir la chance ?"],
+19:["🏺","Que représente la gourde ?"],
+20:["🪙","Que représentent les pièces ?"],
+21:["🐗","Que représente le petit animal qui porte une pièce ?"],
+22:["🗝️","Que représente la clé ?"],
+23:["🐉","Que représente le totem ?"]
 };
 var EMO={1:"🙏",2:"🤲",3:"🕊️",4:"🤔",5:"📖",6:"🌙"};
 var PROMO=[10,11,12,13];
@@ -87,7 +86,7 @@ var SAGE=["Le calme est la plus belle des victoires.","Chaque jour est une page 
 
 // ====== ÉTAT ======
 var DEMO=new URLSearchParams(location.search).get("demo")===DEMO_CODE;
-var KEY="zen59_avent_v2"+(DEMO?"_demo":"");
+var KEY="zen59_avent_v3"+(DEMO?"_demo":"");
 function load(){try{var s=localStorage.getItem(KEY);if(s)return JSON.parse(s)}catch(e){}return {a:{},name:"",dd:1}}
 var S=load();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
@@ -95,21 +94,22 @@ function $(i){return document.getElementById(i)}
 function esc(t){var d=document.createElement("div");d.textContent=t;return d.innerHTML}
 function norm(t){return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ")}
 function today(){if(DEMO)return S.dd;var d=Math.floor((Date.now()-new Date(START+"T00:00:00").getTime())/864e5)+1;return Math.max(0,Math.min(26,d))}
-function E(n){return n<=6?EMO[n]:Q[n]?Q[n][0]:"🎁"}
-function img(n){return PIC[n]?'<img src="'+PIC[n]+'" alt="" style="max-width:100%;max-height:220px;border-radius:10px;display:block;margin:6px auto">':""}
-function pts(){return Object.keys(S.a).filter(function(k){return S.a[k].r}).length}
+function K(n){return SEQ[n-1]}
+function E(n){var c=K(n);return c<=6?EMO[c]:Q[c]?Q[c][0]:"🎁"}
+function img(n){return PIC[K(n)]?'<img src="'+PIC[K(n)]+'" alt="" style="max-width:100%;max-height:220px;border-radius:10px;display:block;margin:6px auto">':""}
+function nq(){return Object.keys(S.a).filter(function(k){return S.a[k].t=="q"}).length}
 function red(){return Object.keys(S.a).filter(function(k){return S.a[k].t=="promo"}).length*5}
 
 // ====== GRILLE ======
 function render(){
  var d=today(),h="";
  ORDER.forEach(function(n){
-  var s=S.a[n],av=!s&&n==d,cl=s?(s.t=="q"&&!s.r?"ko":"ok"):av?"av":"lk";
-  var ic=s?(s.t=="q"?(s.r?"✅":"❌"):s.t=="promo"?"💶":s.t=="win"?"🏆":"✨"):av?"":(n>d?"🔒":"⏳");
-  h+='<button class="c '+cl+'" data-n="'+n+'"'+(s||av?"":" disabled")+'>'+(PIC[n]?'<img src="'+PIC[n]+'" alt="">':'<i>'+E(n)+'</i>')+(ic?'<u>'+ic+'</u>':"")+'<b>'+n+'</b></button>'});
+  var s=S.a[n],av=!s&&n==d,cl=s?"ok":av?"av":"lk";
+  var ic=s?(s.t=="q"?"📝":s.t=="promo"?"💶":s.t=="win"?"🏆":"✨"):av?"":(n>d?"🔒":"⏳");
+  h+='<button class="c '+cl+'" data-n="'+n+'"'+(s||av?"":" disabled")+'>'+(PIC[K(n)]?'<img src="'+PIC[K(n)]+'" alt="">':'<i>'+E(n)+'</i>')+(ic?'<u>'+ic+'</u>':"")+'<b>'+n+'</b></button>'});
  $("g").innerHTML=h;
  $("bar").textContent=d==0?"Le calendrier s’ouvre le 1er décembre !":d>25?"Le calendrier est terminé. Merci d’avoir joué !":"Jour "+d+" / 25 : la case "+d+" vous attend"+(S.a[d]?" (déjà ouverte, à demain !)":"");
- $("sc").innerHTML='<b>⭐ '+pts()+' point(s) · 💶 -'+red()+' € sur votre prochain massage</b><input id="nm" placeholder="Votre prénom" value="'+esc(S.name).replace(/"/g,"&quot;")+'"><button class="bt" id="ml">📧 Envoyer mon récapitulatif</button>';
+ $("sc").innerHTML='<b>📝 '+nq()+' réponse(s)'+(red()?' · 💶 -'+red()+' € sur votre prochain massage':'')+'</b><input id="nm" placeholder="Votre prénom" value="'+esc(S.name).replace(/"/g,"&quot;")+'"><button class="bt" id="ml">📧 Envoyer mon récapitulatif</button>';
  $("nm").oninput=function(){S.name=this.value;save()};
  $("ml").onclick=mail;
  if(DEMO){var m=$("dm");m.hidden=false;m.innerHTML='<p class="s">MODE TEST · jour '+S.dd+'</p><button class="bt gh" id="d1">Jour −</button><button class="bt gh" id="d2">Jour +</button><button class="bt gh" id="d3">Réinitialiser</button>';
@@ -117,8 +117,8 @@ function render(){
 }
 $("g").onclick=function(e){var b=e.target.closest(".c");if(b&&!b.disabled)open(+b.dataset.n)};
 function mail(){
- var L=Object.keys(S.a).map(Number).sort(function(a,b){return a-b}).map(function(n){var s=S.a[n];return "Case "+n+" : "+(s.t=="q"?s.v+(s.r?" (✔)":" (✘)"):s.t=="promo"?"cadeau -5 €":s.t=="win"?"JACKPOT -50 %":"sagesse")});
- var b="Prénom : "+S.name+"\nPoints : "+pts()+"\nRéduction : -"+red()+" €\n\n"+L.join("\n");
+ var L=Object.keys(S.a).map(Number).sort(function(a,b){return a-b}).map(function(n){var s=S.a[n];return "Case "+n+" : "+(s.t=="q"?(K(n)<=6?MQ:Q[K(n)][1])+" → "+s.v:s.t=="promo"?"cadeau -5 €":s.t=="win"?"JACKPOT -50 %":"sagesse")});
+ var b="Prénom : "+S.name+"\nRéduction : -"+red()+" €\n\n"+L.join("\n");
  location.href="mailto:"+MAIL+"?subject="+encodeURIComponent("Calendrier de l’avent – "+S.name)+"&body="+encodeURIComponent(b)}
 
 // ====== MODALE ======
@@ -126,20 +126,19 @@ function box(h){$("bx").innerHTML=h+'<button class="bt gh" onclick="closeB()">Fe
 function closeB(){$("ov").style.display="none";render()}
 function show(n,s){
  var t="<h2>Case "+n+"</h2>"+img(n);
- if(s.t=="q")t+="<p>Votre réponse : <b>"+esc(s.v)+"</b></p><p>"+(s.r?"✅ Bonne réponse, +1 point !":"❌ Pas tout à fait.")+"</p><div class='ex'>Réponse attendue : "+esc(n<=6?MA[n]:Q[n][2])+"</div>";
- else if(s.t=="promo")t+="<div class='big'>💶</div><p>Vous gagnez <b>-5 €</b> sur votre prochain massage. Cadeaux ouverts : "+red()/5+" / 4"+(red()==20?" : <b>-20 € au total !</b>":"")+"</p>";
+ if(s.t=="q")t+="<p>Votre réponse : <b>"+esc(s.v)+"</b></p><p>📝 Réponse enregistrée. Madame Suh la jugera à la fin du jeu.</p>";
+ else if(s.t=="promo")t+="<div class='big'>💶</div><p>Vous gagnez <b>-5 €</b> sur votre prochain massage. Total de vos cadeaux : <b>-"+red()+" €</b></p>";
  else if(s.t=="win")t+="<div class='big'>🏆</div><p><b>JACKPOT !</b> -50 % sur tous les services.</p>";
  else t+="<p>✨ "+SAGE[n%4]+"</p>";
  box(t)}
 function open(n){
  var s=S.a[n];if(s)return show(n,s);
  if(n!=today())return;
- if(n==25){for(var k=1;k<25;k++)if(!S.a[k])return box("<h2>Case 25</h2><p>Il fallait avoir ouvert toutes les cases précédentes pour débloquer le jackpot. Envoyez votre récapitulatif : un lot de consolation vous attend !</p>");
+ if(n==25){for(var k=1;k<25;k++)if(!S.a[k])return box("<h2>Case 25</h2><p>Il fallait avoir ouvert toutes les cases précédentes pour débloquer le jackpot. Envoyez votre capture d’écran ou votre récapitulatif : un lot de consolation vous attend !</p>");
   S.a[25]={t:"win"};save();return show(25,S.a[25])}
- if(PROMO.indexOf(n)>-1||n==24){S.a[n]={t:PROMO.indexOf(n)>-1?"promo":"sage"};save();return show(n,S.a[n])}
- box("<h2>Case "+n+"</h2>"+img(n)+"<p>"+(n<=6?MQ:Q[n][1])+"</p><input id='ans' placeholder='Votre réponse' autocomplete='off'><button class='bt' id='ok'>Valider</button>");
- var go=function(){var v=$("ans").value.trim();if(!v)return;var kw=n<=6?MK[n]:Q[n][3],nv=norm(v);
-  S.a[n]={t:"q",v:v,r:kw.some(function(k){return nv.indexOf(k)>-1})?1:0};save();show(n,S.a[n])};
+ if(PROMO.indexOf(K(n))>-1||K(n)==24){S.a[n]={t:PROMO.indexOf(K(n))>-1?"promo":"sage"};save();return show(n,S.a[n])}
+ box("<h2>Case "+n+"</h2>"+img(n)+"<p>"+(K(n)<=6?MQ:Q[K(n)][1])+"</p><input id='ans' placeholder='Votre réponse' autocomplete='off'><button class='bt' id='ok'>Valider</button>");
+ var go=function(){var v=$("ans").value.trim();if(!v)return;S.a[n]={t:"q",v:v};save();show(n,S.a[n])};
  $("ok").onclick=go;$("ans").onkeydown=function(e){if(e.key=="Enter")go()}}
 render();
 </script>
