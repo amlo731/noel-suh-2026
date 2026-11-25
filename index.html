@@ -95,8 +95,10 @@ function esc(t){var d=document.createElement("div");d.textContent=t;return d.inn
 function norm(t){return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ")}
 function today(){if(DEMO)return S.dd;var d=Math.floor((Date.now()-new Date(START+"T00:00:00").getTime())/864e5)+1;return Math.max(0,Math.min(26,d))}
 function K(n){return SEQ[n-1]}
+var DAYPIC={10:"case10.jpg",17:"case17.jpg",24:"case24.jpg"}; // image propre à un jour précis (prioritaire)
+function pic(n){return DAYPIC[n]||PIC[K(n)]}
 function E(n){var c=K(n);return c<=6?EMO[c]:Q[c]?Q[c][0]:c==24?"🌿":c==25?"🏆":"🎁"}
-function img(n){return PIC[K(n)]?'<img src="'+PIC[K(n)]+'" alt="" style="max-width:100%;max-height:220px;border-radius:10px;display:block;margin:6px auto">':""}
+function img(n){return pic(n)?'<img src="'+pic(n)+'" alt="" style="max-width:100%;max-height:220px;border-radius:10px;display:block;margin:6px auto">':""}
 function nq(){return Object.keys(S.a).filter(function(k){return S.a[k].t=="q"}).length}
 function red(){return Object.keys(S.a).filter(function(k){return S.a[k].t=="promo"}).length*5}
 
@@ -106,7 +108,7 @@ function render(){
  ORDER.forEach(function(n){
   var s=S.a[n],av=!s&&n==d,cl=s?"ok":av?"av":"lk";
   var ic=s?(s.t=="q"?"📝":s.t=="promo"?"💶":s.t=="win"?"🏆":"✨"):av?"":(n>d?"🔒":"⏳");
-  h+='<button class="c '+cl+'" data-n="'+n+'"'+(s||av?"":" disabled")+'>'+(PIC[K(n)]?'<img src="'+PIC[K(n)]+'" alt="">':'<i>'+E(n)+'</i>')+(ic?'<u>'+ic+'</u>':"")+'<b>'+n+'</b></button>'});
+  h+='<button class="c '+cl+'" data-n="'+n+'"'+(s||av?"":" disabled")+'>'+(pic(n)?'<img src="'+pic(n)+'" alt="">':'<i>'+E(n)+'</i>')+(ic?'<u>'+ic+'</u>':"")+'<b>'+n+'</b></button>'});
  $("g").innerHTML=h;
  $("bar").textContent=d==0?"Le calendrier s’ouvre le 1er décembre !":d>25?"Le calendrier est terminé. Merci d’avoir joué !":"Jour "+d+" / 25 : la case "+d+" vous attend"+(S.a[d]?" (déjà ouverte, à demain !)":"");
  $("sc").innerHTML='<b>📝 '+nq()+' réponse(s)'+(red()?' · 💶 -'+red()+' € sur votre prochain massage':'')+'</b><input id="nm" placeholder="Votre prénom" value="'+esc(S.name).replace(/"/g,"&quot;")+'"><button class="bt" id="ml">📧 Envoyer mon récapitulatif</button>';
